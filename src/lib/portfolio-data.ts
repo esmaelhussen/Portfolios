@@ -231,7 +231,7 @@ export const projects: Project[] = [
     image: stock1,
     tags: ["Next.js", "TypeScript", "nestjs", "postgreSQL", "Tailwind CSS", "REST API"],
     category: "Web App",
-    liveUrl: "https://stock-me-perfonet.vercel.app/login",
+    liveUrl: "https://stock.esmaelhussen.online/login",
     githubUrl: "https://github.com/esmaelhussen/stock-managment-frontend",
     features: [
       "Role-based access control (Admin, Manager, Staff) to ensure secure and restricted system operations.",
