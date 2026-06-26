@@ -47,7 +47,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-10 pt-6 border-t flex flex-col sm:flex-row justify-between gap-2 text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} {profile.name}. Crafted with care.</p>
+          <p>© {new Date().getFullYear()} {profile.name}. Crafted with love.</p>
           <p>Built with React, TanStack & Framer Motion.</p>
         </div>
       </div>
