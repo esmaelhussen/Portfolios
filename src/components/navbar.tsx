@@ -1,7 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Code2 } from "lucide-react";
+import { Menu, X, Code2, Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -15,6 +15,7 @@ const links = [
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
@@ -23,6 +24,22 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    const savedTheme = window.localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const initialTheme =
+      savedTheme === "light" || savedTheme === "dark" ? savedTheme : prefersDark ? "dark" : "light";
+    setTheme(initialTheme);
+  }, []);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle("dark", theme === "dark");
+    root.classList.toggle("light", theme === "light");
+    root.style.colorScheme = theme;
+    window.localStorage.setItem("theme", theme);
+  }, [theme]);
 
   useEffect(() => setOpen(false), [pathname]);
 
@@ -47,38 +64,49 @@ export function Navbar() {
             </span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-1">
-            {links.map((l) => {
-              const active = pathname === l.to;
-              return (
-                <Link
-                  key={l.to}
-                  to={l.to}
-                  className={cn(
-                    "relative px-4 py-2 text-sm font-medium rounded-lg transition-colors",
-                    active ? "text-primary" : "text-muted-foreground hover:text-foreground",
-                  )}
-                >
-                  {l.label}
-                  {active && (
-                    <motion.span
-                      layoutId="nav-active"
-                      className="absolute inset-0 -z-10 rounded-lg bg-primary/10 gold-border"
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    />
-                  )}
-                </Link>
-              );
-            })}
-          </nav>
+          <div className="flex items-center gap-2">
+            <nav className="hidden md:flex items-center gap-1">
+              {links.map((l) => {
+                const active = pathname === l.to;
+                return (
+                  <Link
+                    key={l.to}
+                    to={l.to}
+                    className={cn(
+                      "relative px-4 py-2 text-sm font-medium rounded-lg transition-colors",
+                      active ? "text-primary" : "text-muted-foreground hover:text-foreground",
+                    )}
+                  >
+                    {l.label}
+                    {active && (
+                      <motion.span
+                        layoutId="nav-active"
+                        className="absolute inset-0 -z-10 rounded-lg bg-primary/10 gold-border"
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      />
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
 
-          <button
-            onClick={() => setOpen((v) => !v)}
-            className="md:hidden grid h-10 w-10 place-items-center rounded-lg glass"
-            aria-label="Toggle menu"
-          >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+            <button
+              onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
+              className="grid h-10 w-10 place-items-center rounded-lg glass transition-colors hover:bg-accent/50"
+              aria-label="Toggle color theme"
+              title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
+
+            <button
+              onClick={() => setOpen((v) => !v)}
+              className="md:hidden grid h-10 w-10 place-items-center rounded-lg glass"
+              aria-label="Toggle menu"
+            >
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -92,6 +120,13 @@ export function Navbar() {
             className="md:hidden overflow-hidden glass-strong border-t"
           >
             <div className="px-4 py-4 flex flex-col gap-1">
+              <button
+                onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
+                className="flex items-center justify-between rounded-lg border border-border bg-background/60 px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-accent/50"
+              >
+                <span>{theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}</span>
+                {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              </button>
               {links.map((l) => (
                 <Link
                   key={l.to}
