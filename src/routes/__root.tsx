@@ -15,6 +15,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { Toaster } from "@/components/ui/sonner";
+import { AIChatbot } from "@/components/ai-chatbot";
 
 function NotFoundComponent() {
   return (
@@ -128,6 +129,7 @@ function RootComponent() {
         </main>
         <Footer />
         <ScrollToTop />
+        <AIChatbot />
         <Toaster />
       </div>
     </QueryClientProvider>

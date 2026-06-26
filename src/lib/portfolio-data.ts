@@ -16,6 +16,9 @@ import admin3 from "../images/hagere-admin/im-3.png";
 import admin4 from "../images/hagere-admin/im-4.png";
 
 import stock1 from "../images/stock/im-1.png";
+import stock2 from "../images/stock/im-2.png";
+import stock3 from "../images/stock/im-3.png";
+import stock4 from "../images/stock/im-4.png";
 
 export const profile = {
   name: "Esmael Hussen",
@@ -248,7 +251,7 @@ export const projects: Project[] = [
 
     lessons:
       "Strong backend design and proper access control are critical in inventory systems—data integrity matters more than feature complexity when multiple users interact with the same resources.",
-    gallery: [stock1, stock1, stock1],
+    gallery: [stock2, stock3, stock4],
   },
   // {
   //   slug: "echo-chat",

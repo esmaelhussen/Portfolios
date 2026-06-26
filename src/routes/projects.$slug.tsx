@@ -1,6 +1,14 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowLeft, ExternalLink, Github, CheckCircle2, Lightbulb, AlertTriangle, Sparkles } from "lucide-react";
+import {
+  ArrowLeft,
+  ExternalLink,
+  Github,
+  CheckCircle2,
+  Lightbulb,
+  AlertTriangle,
+  Sparkles,
+} from "lucide-react";
 import { projects, type Project } from "@/lib/portfolio-data";
 import { Button } from "@/components/ui/button";
 
@@ -15,20 +23,22 @@ export const Route = createFileRoute("/projects/$slug")({
     return {
       meta: p
         ? [
-            { title: `${p.title} — Alex Mercer` },
+            { title: `${p.title} — Esmael Hussen` },
             { name: "description", content: p.description },
             { property: "og:title", content: p.title },
             { property: "og:description", content: p.description },
             { property: "og:image", content: p.image },
             { name: "twitter:image", content: p.image },
           ]
-        : [{ title: "Project — Alex Mercer" }],
+        : [{ title: "Project — Esmael Hussen" }],
     };
   },
   notFoundComponent: () => (
     <div className="pt-40 text-center">
       <h1 className="text-3xl font-bold">Project not found</h1>
-      <Link to="/projects" className="mt-4 inline-block text-primary">← Back to projects</Link>
+      <Link to="/projects" className="mt-4 inline-block text-primary">
+        ← Back to projects
+      </Link>
     </div>
   ),
   component: ProjectDetailPage,
@@ -61,7 +71,10 @@ function ProjectDetailPage() {
         <p className="mt-4 text-lg text-muted-foreground max-w-2xl">{p.description}</p>
 
         <div className="mt-6 flex flex-wrap gap-3">
-          <Button asChild className="bg-primary text-primary-foreground hover:opacity-90 shadow-glow">
+          <Button
+            asChild
+            className="bg-primary text-primary-foreground hover:opacity-90 shadow-glow"
+          >
             <a href={p.liveUrl} target="_blank" rel="noreferrer">
               <ExternalLink className="mr-2 h-4 w-4" /> Visit Live Site
             </a>
