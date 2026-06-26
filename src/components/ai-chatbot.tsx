@@ -21,16 +21,32 @@ const quickQuestions = [
 function getAssistantReply(question: string) {
   const normalized = question.toLowerCase();
 
-  if (normalized.includes("service") || normalized.includes("help") || normalized.includes("offer")) {
+  if (
+    normalized.includes("service") ||
+    normalized.includes("help") ||
+    normalized.includes("offer")
+  ) {
     return `Esmael helps businesses build polished web apps, dashboards, and full-stack products. His focus includes React, Next.js, Node.js, and thoughtful UI/UX. If you want, I can also point you to a specific project or stack.`;
   }
 
-  if (normalized.includes("project") || normalized.includes("work") || normalized.includes("portfolio")) {
-    const latestProjects = projects.slice(0, 3).map((project) => project.title).join(", ");
+  if (
+    normalized.includes("project") ||
+    normalized.includes("work") ||
+    normalized.includes("portfolio")
+  ) {
+    const latestProjects = projects
+      .slice(0, 3)
+      .map((project) => project.title)
+      .join(", ");
     return `Here are a few recent projects: ${latestProjects}. They range from ecommerce platforms to stock management and admin dashboards.`;
   }
 
-  if (normalized.includes("tech") || normalized.includes("technology") || normalized.includes("stack") || normalized.includes("skill")) {
+  if (
+    normalized.includes("tech") ||
+    normalized.includes("technology") ||
+    normalized.includes("stack") ||
+    normalized.includes("skill")
+  ) {
     const techList = Object.entries(skills)
       .flatMap(([category, items]) => items.map((item) => `${item.name} (${category})`))
       .slice(0, 10)
@@ -38,11 +54,19 @@ function getAssistantReply(question: string) {
     return `His strongest stack includes ${techList}. He is especially comfortable with React, Next.js, TypeScript, Node.js, and Tailwind CSS.`;
   }
 
-  if (normalized.includes("contact") || normalized.includes("email") || normalized.includes("reach")) {
+  if (
+    normalized.includes("contact") ||
+    normalized.includes("email") ||
+    normalized.includes("reach")
+  ) {
     return `You can reach Esmael at ${profile.email}. He is also available on GitHub and LinkedIn through the links in the site footer.`;
   }
 
-  if (normalized.includes("experience") || normalized.includes("year") || normalized.includes("background")) {
+  if (
+    normalized.includes("experience") ||
+    normalized.includes("year") ||
+    normalized.includes("background")
+  ) {
     return `Esmael is a full-stack developer with experience building modern applications and shipping production-ready projects across frontend, backend, and databases.`;
   }
 
@@ -134,12 +158,16 @@ export function AIChatbot() {
               {messages.map((message) => (
                 <div
                   key={message.id}
-                  className={message.role === "assistant" ? "mr-auto max-w-[90%]" : "ml-auto max-w-[90%]"}
+                  className={
+                    message.role === "assistant" ? "mr-auto max-w-[90%]" : "ml-auto max-w-[90%]"
+                  }
                 >
                   <div
-                    className={message.role === "assistant"
-                      ? "rounded-2xl rounded-tl-md bg-secondary px-3 py-2 text-sm text-foreground"
-                      : "rounded-2xl rounded-tr-md bg-primary px-3 py-2 text-sm text-primary-foreground"}
+                    className={
+                      message.role === "assistant"
+                        ? "rounded-2xl rounded-tl-md bg-secondary px-3 py-2 text-sm text-foreground"
+                        : "rounded-2xl rounded-tr-md bg-primary px-3 py-2 text-sm text-primary-foreground"
+                    }
                   >
                     {message.content}
                   </div>
