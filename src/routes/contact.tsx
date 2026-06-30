@@ -41,7 +41,7 @@ type FormValues = z.infer<typeof schema>;
 
 const info = [
   { icon: Mail, label: "Email", value: profile.email, href: `mailto:${profile.email}` },
-  { icon: Phone, label: "Phone", value: "+251 930 67 09 90", href: "tel:+251930670990" },
+  { icon: Phone, label: "Phone", value: profile.phone, href: "tel:+251930670990" },
   { icon: MapPin, label: "Location", value: profile.location },
 ];
 

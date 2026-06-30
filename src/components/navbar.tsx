@@ -1,22 +1,22 @@
-import { Link, useRouterState } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, type MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Code2, Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
-  { to: "/skills", label: "Skills" },
-  { to: "/projects", label: "Projects" },
-  { to: "/contact", label: "Contact" },
+  { href: "#top", label: "Home" },
+  { href: "#about", label: "About" },
+  { href: "#skills", label: "Skills" },
+  { href: "#projects", label: "Projects" },
+  { href: "#contact", label: "Contact" },
 ] as const;
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const [activeSection, setActiveSection] = useState("top");
+  const navigatingToSectionRef = useRef<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -41,7 +41,96 @@ export function Navbar() {
     window.localStorage.setItem("theme", theme);
   }, [theme]);
 
-  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => {
+    const sectionIds = ["top", "about", "skills", "projects", "contact"];
+    const NAV_OFFSET = 112;
+    const CLICK_SCROLL_OFFSET = 88;
+    const TARGET_SNAP_DISTANCE = 6;
+    let ticking = false;
+
+    const updateActiveSection = () => {
+      const navigatingTo = navigatingToSectionRef.current;
+      if (navigatingTo) {
+        const target = document.getElementById(navigatingTo);
+        if (target) {
+          const targetY = Math.max(
+            0,
+            target.getBoundingClientRect().top + window.scrollY - CLICK_SCROLL_OFFSET,
+          );
+          const distanceToTarget = Math.abs(window.scrollY - targetY);
+
+          if (distanceToTarget > TARGET_SNAP_DISTANCE) {
+            setActiveSection(navigatingTo);
+            return;
+          }
+        }
+
+        navigatingToSectionRef.current = null;
+      }
+
+      const scrollPosition = window.scrollY + NAV_OFFSET;
+      const orderedSections = sectionIds
+        .map((id) => {
+          const section = document.getElementById(id);
+          return section ? { id, top: section.getBoundingClientRect().top + window.scrollY } : null;
+        })
+        .filter((section): section is { id: string; top: number } => section !== null)
+        .sort((a, b) => a.top - b.top);
+
+      if (orderedSections.length === 0) {
+        setActiveSection("top");
+        return;
+      }
+
+      let currentSection = orderedSections[0].id;
+
+      for (const section of orderedSections) {
+        if (scrollPosition >= section.top) {
+          currentSection = section.id;
+        } else {
+          break;
+        }
+      }
+
+      setActiveSection((previous) => (previous === currentSection ? previous : currentSection));
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        updateActiveSection();
+        ticking = false;
+      });
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", updateActiveSection);
+    };
+  }, []);
+
+  const handleNavClick = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    event.preventDefault();
+    const id = href.replace("#", "");
+    navigatingToSectionRef.current = id;
+    setActiveSection(id);
+    setOpen(false);
+
+    const target = document.getElementById(id);
+    if (target) {
+      const y = target.getBoundingClientRect().top + window.scrollY - 88;
+      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+    }
+
+    if (window.history.pushState) {
+      window.history.pushState(null, "", href);
+    }
+  };
 
   return (
     <motion.header
@@ -55,26 +144,29 @@ export function Navbar() {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 group">
+          <a href="#top" className="flex items-center gap-2 group">
             <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary/10 gold-border group-hover:bg-primary/20 transition">
               <Code2 className="h-5 w-5 text-primary" />
             </div>
             <span className="font-display font-bold text-lg tracking-tight">
               Esmael<span className="text-gradient-gold">.dev</span>
             </span>
-          </Link>
+          </a>
 
           <div className="flex items-center gap-2">
             <nav className="hidden md:flex items-center gap-1">
               {links.map((l) => {
-                const active = pathname === l.to;
+                const active = activeSection === l.href.replace("#", "");
                 return (
-                  <Link
-                    key={l.to}
-                    to={l.to}
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    onClick={(event) => handleNavClick(event, l.href)}
                     className={cn(
-                      "relative px-4 py-2 text-sm font-medium rounded-lg transition-colors",
-                      active ? "text-primary" : "text-muted-foreground hover:text-foreground",
+                      "relative px-4 py-2 text-sm font-medium rounded-full transition-all",
+                      active
+                        ? "glass-strong text-primary gold-border shadow-[0_0_0_1px_color-mix(in_oklab,var(--gold)_20%,transparent)]"
+                        : "text-muted-foreground hover:text-foreground hover:bg-secondary/80",
                     )}
                   >
                     {l.label}
@@ -85,7 +177,7 @@ export function Navbar() {
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                       />
                     )}
-                  </Link>
+                  </a>
                 );
               })}
             </nav>
@@ -128,18 +220,19 @@ export function Navbar() {
                 {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               </button>
               {links.map((l) => (
-                <Link
-                  key={l.to}
-                  to={l.to}
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={(event) => handleNavClick(event, l.href)}
                   className={cn(
-                    "px-4 py-3 rounded-lg text-sm font-medium transition-colors",
-                    pathname === l.to
-                      ? "bg-primary/10 text-primary gold-border"
+                    "px-4 py-3 rounded-2xl text-sm font-medium transition-all",
+                    activeSection === l.href.replace("#", "")
+                      ? "glass-strong text-primary gold-border shadow-[0_0_0_1px_color-mix(in_oklab,var(--gold)_20%,transparent)]"
                       : "text-muted-foreground hover:text-foreground hover:bg-secondary",
                   )}
                 >
                   {l.label}
-                </Link>
+                </a>
               ))}
             </div>
           </motion.nav>

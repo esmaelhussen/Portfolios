@@ -18,9 +18,21 @@ export function Footer() {
           <div>
             <p className="text-sm font-semibold text-foreground/80 mb-3">Quick Links</p>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="/about" className="hover:text-primary transition">About</a></li>
-              <li><a href="/projects" className="hover:text-primary transition">Projects</a></li>
-              <li><a href="/contact" className="hover:text-primary transition">Contact</a></li>
+              <li>
+                <a href="#about" className="hover:text-primary transition">
+                  About
+                </a>
+              </li>
+              <li>
+                <a href="#projects" className="hover:text-primary transition">
+                  Projects
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="hover:text-primary transition">
+                  Contact
+                </a>
+              </li>
             </ul>
           </div>
           <div>
@@ -47,7 +59,9 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-10 pt-6 border-t flex flex-col sm:flex-row justify-between gap-2 text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} {profile.name}. Crafted with love.</p>
+          <p>
+            © {new Date().getFullYear()} {profile.name}. Crafted with love.
+          </p>
           <p>Built with React, TanStack & Framer Motion.</p>
         </div>
       </div>
