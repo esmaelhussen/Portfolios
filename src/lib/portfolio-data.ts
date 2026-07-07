@@ -26,7 +26,7 @@ export const profile = {
   tagline: "I craft fast, elegant web experiences",
   bio: "Full stack developer with a passion for building products that blend thoughtful design with rock-solid engineering. I specialize in React, Node.js, and next.js.",
   longBio:
-    "I'm a Full Stack Developer with over 1 year of experience building modern, scalable web applications. I specialize in creating seamless user experiences with React, Next.js, Node.js, and PostgreSQL, combining thoughtful design with robust backend architecture. From responsive front-end interfaces to secure APIs and database systems, I enjoy turning ideas into reliable, production-ready products. I'm passionate about clean code, performance optimization, and building applications that are both functional and enjoyable to use.",
+    "Full Stack Developer with 1+ year of experience building scalable web applications using React, Next.js, Node.js, and PostgreSQL. Passionate about clean code, performance, and delivering reliable software.",
   location: "Addis Ababa, Ethiopia",
   email: "esmaelehussen@gmail.com",
   phone: "+251 930 67 09 90",
