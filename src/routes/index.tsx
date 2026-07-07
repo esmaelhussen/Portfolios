@@ -21,8 +21,23 @@ import {
   Search,
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
-import { profile, projects, experience, education, interests, skills } from "@/lib/portfolio-data";
+import {
+  profile,
+  projects,
+  experience,
+  education,
+  interests,
+  skills,
+  type Project,
+} from "@/lib/portfolio-data";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { ParticlesBg } from "@/components/particles-bg";
 import { TypedText } from "@/components/typed-text";
 import { SectionHeader } from "@/components/section-header";
@@ -68,6 +83,8 @@ function HomePage() {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState<(typeof categories)[number]>("All");
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isProjectDialogOpen, setIsProjectDialogOpen] = useState(false);
   const observerTarget = useRef<HTMLDivElement>(null);
 
   const form = useForm<FormValues>({
@@ -136,6 +153,18 @@ function HomePage() {
 
     return () => observer.disconnect();
   }, [hasMore, isLoading, loadMore]);
+
+  const openProjectDetails = (project: Project) => {
+    setSelectedProject(project);
+    setIsProjectDialogOpen(true);
+  };
+
+  const closeProjectDetails = (open: boolean) => {
+    setIsProjectDialogOpen(open);
+    if (!open) {
+      setSelectedProject(null);
+    }
+  };
 
   return (
     <div id="top" className="w-full">
@@ -318,13 +347,11 @@ function HomePage() {
 
                       <div className="mt-5 flex items-center gap-2">
                         <Button
-                          asChild
                           size="sm"
                           className="flex-1 bg-primary text-primary-foreground hover:opacity-90"
+                          onClick={() => openProjectDetails(p)}
                         >
-                          <a href={p.liveUrl} target="_blank" rel="noreferrer">
-                            View Details <ArrowRight className="ml-1 h-3.5 w-3.5" />
-                          </a>
+                          View Details <ArrowRight className="ml-1 h-3.5 w-3.5" />
                         </Button>
                         <Button asChild size="icon" variant="outline" className="glass gold-border">
                           <a
@@ -382,6 +409,141 @@ function HomePage() {
           )}
         </div>
       </section>
+
+      <Dialog open={isProjectDialogOpen} onOpenChange={closeProjectDetails}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto glass-strong border-border/60">
+          {selectedProject && (
+            <div className="space-y-6">
+              <DialogHeader className="space-y-3 text-left">
+                <span className="inline-flex w-fit rounded-full bg-primary/10 px-3 py-1 text-xs font-mono uppercase tracking-wider text-primary">
+                  {selectedProject.category}
+                </span>
+                <DialogTitle className="text-2xl sm:text-3xl font-display">
+                  {selectedProject.title}
+                </DialogTitle>
+                <DialogDescription className="text-base text-muted-foreground">
+                  {selectedProject.description}
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+                <div className="space-y-4">
+                  <div className="overflow-hidden rounded-2xl border border-border/60">
+                    <img
+                      src={selectedProject.image}
+                      alt={selectedProject.title}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+
+                  <div className="space-y-3">
+                    <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">
+                      Overview
+                    </h3>
+                    <p className="text-sm leading-7 text-muted-foreground">
+                      {selectedProject.longDescription}
+                    </p>
+                  </div>
+
+                  <div className="space-y-3">
+                    <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">
+                      Key features
+                    </h3>
+                    <ul className="grid gap-2 sm:grid-cols-2">
+                      {selectedProject.features.map((feature) => (
+                        <li
+                          key={feature}
+                          className="rounded-xl border border-border/60 bg-background/40 px-4 py-3 text-sm text-muted-foreground"
+                        >
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="space-y-5">
+                  <div className="rounded-2xl border border-border/60 bg-background/40 p-5">
+                    <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">
+                      Tech stack
+                    </h3>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {selectedProject.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-border/60 bg-background/40 p-5 space-y-4">
+                    <div>
+                      <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">
+                        Challenge
+                      </h3>
+                      <p className="mt-2 text-sm leading-7 text-muted-foreground">
+                        {selectedProject.challenges}
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">
+                        Solution
+                      </h3>
+                      <p className="mt-2 text-sm leading-7 text-muted-foreground">
+                        {selectedProject.solutions}
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">
+                        Lesson learned
+                      </h3>
+                      <p className="mt-2 text-sm leading-7 text-muted-foreground">
+                        {selectedProject.lessons}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-border/60 bg-background/40 p-5">
+                    <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">
+                      Gallery
+                    </h3>
+                    <div className="mt-3 grid grid-cols-3 gap-2">
+                      {selectedProject.gallery.map((image, index) => (
+                        <div
+                          key={`${selectedProject.slug}-gallery-${index}`}
+                          className="overflow-hidden rounded-lg border border-border/60"
+                        >
+                          <img
+                            src={image}
+                            alt={`${selectedProject.title} screenshot ${index + 1}`}
+                            className="aspect-4/3 w-full object-cover"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-3 pt-1">
+                    <Button asChild className="bg-primary text-primary-foreground hover:opacity-90">
+                      <a href={selectedProject.liveUrl} target="_blank" rel="noreferrer">
+                        Live demo <ExternalLink className="ml-2 h-4 w-4" />
+                      </a>
+                    </Button>
+                    <Button asChild variant="outline" className="glass gold-border">
+                      <a href={selectedProject.githubUrl} target="_blank" rel="noreferrer">
+                        Source code <Github className="ml-2 h-4 w-4" />
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
 
       {/* About Section */}
       <section id="about" className="relative py-20 sm:py-32">
