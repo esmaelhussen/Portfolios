@@ -18,7 +18,7 @@ export function SectionHeader({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.5 }}
-      className="text-center max-w-2xl mx-auto"
+      className="text-center max-w-2xl mx-auto mb-10 sm:mb-12"
     >
       {eyebrow && (
         <p className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase text-primary px-3 py-1 rounded-full glass gold-border mb-4">
