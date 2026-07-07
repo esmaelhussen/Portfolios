@@ -33,7 +33,8 @@ export const profile = {
   github: "https://github.com/esmaelhussen",
   linkedin: "https://linkedin.com/in/esmaelhussen",
   twitter: "https://twitter.com/esmaelhussen",
-  cvUrl: "https://drive.google.com/file/d/17P0ph5dF3MXVlWm3uWd2Ig1z5-7xK1yJ/view?usp=drivesdk",
+  cvUrl:
+    "https://docs.google.com/document/d/1HKzGDseoaI4E25lv4Vg6gfbkVf21rFjSI8cvvvW1as4/edit?usp=sharing ",
   typingPhrases: [
     "Full Stack Developer",
     "React & Node.js Developer",
