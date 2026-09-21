@@ -20,6 +20,10 @@ import stock2 from "../images/stock/im-2.png";
 import stock3 from "../images/stock/im-3.png";
 import stock4 from "../images/stock/im-4.png";
 
+import meal1 from "../images/meal-finder/im-1.png";
+import meal2 from "../images/meal-finder/im-2.png";
+import meal3 from "../images/meal-finder/im-3.png";
+
 export const profile = {
   name: "Esmael Hussen",
   role: "Full Stack Developer",
@@ -255,62 +259,39 @@ export const projects: Project[] = [
       "Strong backend design and proper access control are critical in inventory systems—data integrity matters more than feature complexity when multiple users interact with the same resources.",
     gallery: [stock2, stock3, stock4],
   },
-  // {
-  //   slug: "echo-chat",
-  //   title: "Echo Chat",
-  //   description: "End-to-end encrypted team chat with realtime collaboration.",
-  //   longDescription:
-  //     "Echo is a Slack alternative for security-conscious teams. End-to-end encryption, self-hostable, and built around fast keyboard-driven UX.",
-  //   image: cover("1531403009284-440f080d1e12"),
-  //   tags: ["React", "Node.js", "WebSockets", "PostgreSQL", "Docker"],
-  //   category: "SaaS",
-  //   liveUrl: "https://example.com",
-  //   githubUrl: "https://github.com",
-  //   features: [
-  //     "End-to-end encryption (Signal protocol)",
-  //     "Threaded conversations",
-  //     "Realtime cursor presence in docs",
-  //     "Self-host or cloud",
-  //     "Keyboard-first UX",
-  //   ],
-  //   challenges: "Implementing E2EE while keeping search and notifications working at scale.",
-  //   solutions:
-  //     "Hybrid model: clients index encrypted content locally and push encrypted search tokens to the server.",
-  //   lessons:
-  //     "Security UX is hard. If users can't tell what's encrypted, they'll assume nothing is.",
-  //   gallery: [
-  //     cover("1531403009284-440f080d1e12"),
-  //     cover("1551434678-e076c223a692"),
-  //     cover("1517245386807-bb43f82c33c4"),
-  //   ],
-  // },
-  // {
-  //   slug: "lumen-blog",
-  //   title: "Lumen Blog Engine",
-  //   description: "Markdown-first blogging engine with built-in editorial workflow.",
-  //   longDescription:
-  //     "Lumen is a self-hosted, markdown-first blogging engine with a clean writing experience, editorial workflow, and an opinionated reading layout.",
-  //   image: cover("1499750310107-5fef28a66643"),
-  //   tags: ["Next.js", "TypeScript", "MDX", "PostgreSQL"],
-  //   category: "Open Source",
-  //   liveUrl: "https://example.com",
-  //   githubUrl: "https://github.com",
-  //   features: [
-  //     "Distraction-free MDX editor",
-  //     "Editorial workflow (draft → review → publish)",
-  //     "Built-in RSS & sitemap",
-  //     "Image optimization pipeline",
-  //     "Comments with moderation",
-  //   ],
-  //   challenges:
-  //     "Designing a writing experience that felt as fluid as a native app inside the browser.",
-  //   solutions:
-  //     "Built a custom editor on top of TipTap with carefully tuned keyboard shortcuts and slash commands.",
-  //   lessons: "Writers will adopt a tool the moment it disappears. Friction is the only enemy.",
-  //   gallery: [
-  //     cover("1499750310107-5fef28a66643"),
-  //     cover("1455390582262-044cdead277a"),
-  //     cover("1432821596592-e2c18b78144f"),
-  //   ],
-  // },
+  {
+    slug: "Meal Finder",
+    title: "Meal Finder",
+    description: "A web application for finding and discovering new meals.",
+    longDescription:
+      "Meal Finder is a web-based application that allows users to discover a wide variety of meals, search for recipes, and explore detailed meal information including ingredients, instructions, and categories.",
+    image: meal1,
+    tags: [
+      "React",
+      "javaScript",
+      "React Router",
+      "ShadCN UI",
+      "Tailwind CSS",
+      "TheMealDB REST API",
+    ],
+    category: "Web App",
+    liveUrl: "https://esmael-meal-finder.vercel.app/",
+    githubUrl: "https://github.com/esmaelhussen/Meal-Finder",
+    features: [
+      "Search functionality to quickly find meals by name or keyword.",
+      "Meal discovery based on categories and available recipes.",
+      "Detailed meal information including ingredients, instructions, and meal images.",
+      "Integration with a REST API to dynamically fetch meal and recipe data.",
+      "Responsive user interface designed for a smooth experience across desktop and mobile devices.",
+    ],
+    challenges:
+      "Building a responsive meal discovery application that efficiently fetches and displays dynamic recipe data while keeping the interface simple and easy to navigate.",
+
+    solutions:
+      "Implemented API integration to retrieve meal data dynamically, organized the application into reusable React components, and created responsive layouts for browsing and viewing recipe details.",
+
+    lessons:
+      "Learned how to work with external REST APIs, manage asynchronous data fetching in React, build reusable components, and create responsive user interfaces for real-world applications.",
+    gallery: [meal2, meal3],
+  },
 ];
