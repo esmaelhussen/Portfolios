@@ -834,6 +834,9 @@ function HomePage() {
                   I’m available for freelance work, full-time opportunities, and collaborative
                   projects.
                 </p>
+                <p className="mt-3 text-sm font-medium text-primary">
+                  I’ll respond within 24 hours.
+                </p>
               </div>
 
               <div className="grid sm:grid-cols-2 gap-5">

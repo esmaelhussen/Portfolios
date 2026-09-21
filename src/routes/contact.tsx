@@ -157,6 +157,7 @@ function ContactPage() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="glass-strong rounded-3xl p-6 sm:p-8 space-y-5"
         >
+          <p className="text-sm font-medium text-primary">I’ll respond within 24 hours.</p>
           <div className="grid sm:grid-cols-2 gap-5">
             <div className="space-y-2">
               <Label htmlFor="name">Name</Label>
