@@ -152,7 +152,7 @@ export const projects: Project[] = [
     image: img1,
     tags: ["React", "Tailwind CSS", "Node.js", "MongoDB", "Redux"],
     category: "Web App",
-    liveUrl: "https://hagereshop.esmaelhussen.online/",
+    liveUrl: "https://hagereshop.esmael.me/",
     githubUrl: "https://github.com/esmaelhussen/Hagere-shop",
     features: [
       "Real-time Communication with sellers",
@@ -183,7 +183,7 @@ export const projects: Project[] = [
     image: sell4,
     tags: ["React", "Node.js", "Tailwind CSS", "Redux", "Chart.js"],
     category: "Web App",
-    liveUrl: "https://dashboard.hagereshop.esmaelhussen.online/login",
+    liveUrl: "https://dashboard.hagereshop.esmael.me/login",
     githubUrl: "https://github.com/esmaelhussen/Hagere-shop-dashboard",
     features: [
       "Add, edit, and delete products with images, pricing, and descriptions",
@@ -212,7 +212,7 @@ export const projects: Project[] = [
 
     tags: ["React", "Node.js", "mongoDB", "chapa", "Redux", "Tailwind CSS", "Chart.js"],
     category: "Web App",
-    liveUrl: "https://dashboard.hagereshop.esmaelhussen.online/admin/login",
+    liveUrl: "https://dashboard.hagereshop.esmael.me/admin/login",
     githubUrl: "https://github.com/esmaelhussen/Hagere-shop-dashboard",
     features: [
       "Manage all users (customers, sellers, and other admins)",
@@ -240,7 +240,7 @@ export const projects: Project[] = [
     image: stock1,
     tags: ["Next.js", "TypeScript", "nestjs", "postgreSQL", "Tailwind CSS", "REST API"],
     category: "Web App",
-    liveUrl: "https://stock.esmaelhussen.online/login",
+    liveUrl: "https://stock.esmael.me/login",
     githubUrl: "https://github.com/esmaelhussen/stock-managment-frontend",
     features: [
       "Role-based access control (Admin, Manager, Staff) to ensure secure and restricted system operations.",
