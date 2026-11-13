@@ -80,22 +80,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Alex Mercer — Full Stack Developer" },
+      { title: "Esmael Hussen — Full Stack Developer" },
       {
         name: "description",
         content:
-          "Portfolio of Alex Mercer, a full stack developer building fast, elegant web products with React, TypeScript and Node.js.",
+          "Portfolio of Esmael Hussen, a full stack developer building fast, elegant web products with React, TypeScript and Node.js.",
       },
-      { name: "author", content: "Alex Mercer" },
-      { property: "og:title", content: "Alex Mercer — Full Stack Developer" },
+      { name: "author", content: "Esmael Hussen" },
+      { property: "og:title", content: "Esmael Hussen — Full Stack Developer" },
       {
         property: "og:description",
-        content: "Portfolio, projects and writings by Alex Mercer.",
+        content: "Portfolio, projects and writings by Esmael Hussen.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "stylesheet", href: appCss }],
+    links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", type: "image/svg+xml", sizes: "any", href: "/favicon.svg" },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
