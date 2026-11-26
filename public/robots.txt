@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://esmael.me/sitemap.xml
+Sitemap: https://www.esmael.me/sitemap.xml

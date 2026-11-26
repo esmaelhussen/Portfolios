@@ -122,7 +122,7 @@ function RootShell({ children }: { children: ReactNode }) {
               "@type": "WebSite",
               name: "Esmael Hussen",
               alternateName: "Esmael Hussen Portfolio",
-              url: "https://esmael.me/",
+              url: "https://www.esmael.me/",
             }),
           }}
         />
