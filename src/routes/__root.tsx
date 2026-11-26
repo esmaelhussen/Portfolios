@@ -94,6 +94,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:site_name", content: "Esmael Hussen" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -113,6 +114,18 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Esmael Hussen",
+              alternateName: "Esmael Hussen Portfolio",
+              url: "https://esmael.me/",
+            }),
+          }}
+        />
       </head>
       <body>
         {children}
